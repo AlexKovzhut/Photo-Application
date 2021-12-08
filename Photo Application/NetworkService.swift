@@ -20,8 +20,8 @@ class NetworkService {
     
     private func prepareHeader() -> [String: String]? {
         var headers = [String: String]()
-        headers["Authorization"] = "Client-IDF8qFf42dxGvig_oG30JrkfG9XqFct5qeAm6Nvv_D6KY"
-        headers["Authorization"] = "Client-IDJ0s-ScBgmK8nGW77vjGxL1ETMGJyVWC3FmQcXdd3X1w"
+        headers["Authorization"] = "Client-ID J0s-ScBgmK8nGW77vjGxL1ETMGJyVWC3FmQcXdd3X1w" //Secret key
+        headers["Authorization"] = "Client-ID F8qFf42dxGvig_oG30JrkfG9XqFct5qeAm6Nvv_D6KY" //Access Key
         
         return headers
     }
@@ -39,7 +39,7 @@ class NetworkService {
         var components = URLComponents()
         components.scheme = "https"
         components.host = "api.unsplash.com"
-        components.path = "/search/photos?"
+        components.path = "/search/photos"
         components.queryItems = parameterts.map { URLQueryItem(name: $0, value: $1)}
         
         return components.url!

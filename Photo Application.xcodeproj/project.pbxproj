@@ -16,6 +16,7 @@
 		025AC3DC275EB88A00174BA2 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 025AC3DB275EB88A00174BA2 /* NetworkService.swift */; };
 		025AC3DE275EC95800174BA2 /* NetworkDataFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 025AC3DD275EC95800174BA2 /* NetworkDataFetcher.swift */; };
 		025AC3E0275EC9A400174BA2 /* SearchResults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 025AC3DF275EC9A400174BA2 /* SearchResults.swift */; };
+		025AC3E327612F9600174BA2 /* PhotoCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 025AC3E227612F9600174BA2 /* PhotoCollectionCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +31,7 @@
 		025AC3DB275EB88A00174BA2 /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 		025AC3DD275EC95800174BA2 /* NetworkDataFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkDataFetcher.swift; sourceTree = "<group>"; };
 		025AC3DF275EC9A400174BA2 /* SearchResults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResults.swift; sourceTree = "<group>"; };
+		025AC3E227612F9600174BA2 /* PhotoCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoCollectionCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -68,6 +70,7 @@
 				025AC3D5275E9FE000174BA2 /* MainTabBarController.swift */,
 				025AC3D9275EA2C700174BA2 /* PhotoTableViewController.swift */,
 				025AC3D7275EA09400174BA2 /* PhotoCollectionViewController.swift */,
+				025AC3E227612F9600174BA2 /* PhotoCollectionCell.swift */,
 				025AC3D4275E9DFF00174BA2 /* Resources */,
 			);
 			path = "Photo Application";
@@ -164,6 +167,7 @@
 			files = (
 				025AC3DE275EC95800174BA2 /* NetworkDataFetcher.swift in Sources */,
 				025AC3DC275EB88A00174BA2 /* NetworkService.swift in Sources */,
+				025AC3E327612F9600174BA2 /* PhotoCollectionCell.swift in Sources */,
 				025AC3C1275E9DDE00174BA2 /* AppDelegate.swift in Sources */,
 				025AC3D8275EA09400174BA2 /* PhotoCollectionViewController.swift in Sources */,
 				025AC3E0275EC9A400174BA2 /* SearchResults.swift in Sources */,
