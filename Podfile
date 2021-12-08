@@ -6,5 +6,7 @@ target 'Photo Application' do
   use_frameworks!
 
   # Pods for Photo Application
+pod 'SDWebImage', '~> 5.0'
+
 
 end

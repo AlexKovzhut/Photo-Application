@@ -6,18 +6,21 @@
 //
 
 import UIKit
+import SDWebImage
 
 class PhotoCollectionCell: UICollectionViewCell {
     static let reuseId = "PhotosCell"
     
-    private let checkmark: UIImageView = {
+    let checkmark: UIImageView = {
         let image = UIImage(systemName: "suit.heart.fill")
         let imageView = UIImageView(image: image)
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.alpha = 0
         
         return imageView
     }()
     
-    private let photoImageView: UIImageView = {
+    let photoImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.backgroundColor = .systemBlue
@@ -31,7 +34,8 @@ class PhotoCollectionCell: UICollectionViewCell {
     var unsplashPhoto: UnsplashPhoto! {
         didSet {
             let photoURL = unsplashPhoto.urls["regular"]
-            
+            guard let imageURL = photoURL, let url = URL(string: imageURL) else { return }
+            photoImageView.sd_setImage(with: url, completed: nil)
         }
     }
     
@@ -47,13 +51,14 @@ class PhotoCollectionCell: UICollectionViewCell {
     }
     
     private func updateSelectedState() {
-        photoImageView.alpha = isSelected ? 0.7: 1
+        photoImageView.alpha = isSelected ? 0.7 : 1
         checkmark.alpha = isSelected ? 1 : 0
     }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         
+        updateSelectedState()
         setupPhotoImageView()
         setupCheckmarkView()
     }
