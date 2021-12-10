@@ -1,5 +1,5 @@
 //
-//  PhotoCollectionViewController.swift
+//  SearchPhotosViewController.swift
 //  Photo Application
 //
 //  Created by Alexander Kovzhut on 06.12.2021.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-class PhotoCollectionViewController: UICollectionViewController {
+class SearchPhotosViewController: UICollectionViewController {
     var networkDataFetcher = NetworkDataFetcher()
     private var timer: Timer?
     
@@ -15,8 +15,8 @@ class PhotoCollectionViewController: UICollectionViewController {
     
     private var selectedImages = [UIImage]()
     
-//    private let itemsPerRow: CGFloat = 2
-//    private let sectionInserts = UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 20)
+    private let itemsPerRow: CGFloat = 2
+    private let sectionInserts = UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 20)
     
     private lazy var addBarButtonItem: UIBarButtonItem = {
         return UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addBarButtonPressed))
@@ -90,14 +90,10 @@ class PhotoCollectionViewController: UICollectionViewController {
     
     private func setupCollectionView() {
         collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "cellId")
-        collectionView.register(PhotoCollectionCell.self, forCellWithReuseIdentifier: PhotoCollectionCell.reuseId)
+        collectionView.register(SearchPhotosCell.self, forCellWithReuseIdentifier: SearchPhotosCell.reuseId)
         collectionView.layoutMargins = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16)
         collectionView.contentInsetAdjustmentBehavior = .automatic
         collectionView.allowsMultipleSelection = true
-        
-        if let waterfallLayout = collectionViewLayout as? WaterfallLayout {
-            waterfallLayout.delegate = self
-        }
     }
     
     private func setupNavigationBar() {
@@ -139,7 +135,7 @@ class PhotoCollectionViewController: UICollectionViewController {
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PhotoCollectionCell.reuseId, for: indexPath) as! PhotoCollectionCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SearchPhotosCell.reuseId, for: indexPath) as! SearchPhotosCell
         let unsplashPhoto = photos[indexPath.item]
         
         cell.unsplashPhoto = unsplashPhoto
@@ -148,7 +144,7 @@ class PhotoCollectionViewController: UICollectionViewController {
     }
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let cell = collectionView.cellForItem(at: indexPath) as! PhotoCollectionCell
+        let cell = collectionView.cellForItem(at: indexPath) as! SearchPhotosCell
         updateNavButtonsState()
         guard let image = cell.photoImageView.image else { return }
         selectedImages.append(image)
@@ -156,7 +152,7 @@ class PhotoCollectionViewController: UICollectionViewController {
     
     override func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         updateNavButtonsState()
-        let cell = collectionView.cellForItem(at: indexPath) as! PhotoCollectionCell
+        let cell = collectionView.cellForItem(at: indexPath) as! SearchPhotosCell
         guard let image = cell.photoImageView.image else { return }
         if let index = selectedImages.firstIndex(of: image) {
             selectedImages.remove(at: index)
@@ -166,7 +162,7 @@ class PhotoCollectionViewController: UICollectionViewController {
 
 // MARK: - UISearchBarDelegate
 
-extension PhotoCollectionViewController: UISearchBarDelegate {
+extension SearchPhotosViewController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         self.spinner.startAnimating()
         timer?.invalidate()
@@ -182,32 +178,24 @@ extension PhotoCollectionViewController: UISearchBarDelegate {
     }
 }
 
-// MARK: - UICollectionViewDelegateFlowLayout
-//
-//extension PhotoCollectionViewController: UICollectionViewDelegateFlowLayout {
-//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-//        let photo = photos[indexPath.item]
-//        let paddingSpace = sectionInserts.left * (itemsPerRow + 1)
-//        let availableWidth = view.frame.width - paddingSpace
-//        let widthPerItem = availableWidth / itemsPerRow
-//        let height = CGFloat(photo.height) * widthPerItem / CGFloat(photo.width)
-//
-//        return CGSize(width: widthPerItem, height: height)
-//    }
-//
-//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-//        return sectionInserts
-//    }
-//
-//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-//        return sectionInserts.left
-//    }
-//}
+ //MARK: - UICollectionViewDelegateFlowLayout
 
-extension PhotoCollectionViewController: WaterfallLayoutDelegate {
-    func waterfallLayout(_ layout: WaterfallLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+extension SearchPhotosViewController: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let photo = photos[indexPath.item]
-        
-        return CGSize(width: photo.width, height: photo.height)
+        let paddingSpace = sectionInserts.left * (itemsPerRow + 1)
+        let availableWidth = view.frame.width - paddingSpace
+        let widthPerItem = availableWidth / itemsPerRow
+        let height = CGFloat(photo.height) * widthPerItem / CGFloat(photo.width)
+
+        return CGSize(width: widthPerItem, height: height)
+    }
+
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        return sectionInserts
+    }
+
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return sectionInserts.left
     }
 }

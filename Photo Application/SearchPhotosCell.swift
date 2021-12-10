@@ -1,5 +1,5 @@
 //
-//  PhotoCollectionCell.swift
+//  SearchPhotosCell.swift
 //  Photo Application
 //
 //  Created by Alexander Kovzhut on 08.12.2021.
@@ -8,7 +8,7 @@
 import UIKit
 import SDWebImage
 
-class PhotoCollectionCell: UICollectionViewCell {
+class SearchPhotosCell: UICollectionViewCell {
     static let reuseId = "PhotosCell"
     
     let checkmark: UIImageView = {

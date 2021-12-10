@@ -7,6 +7,6 @@ target 'Photo Application' do
 
   # Pods for Photo Application
 pod 'SDWebImage', '~> 5.0'
-
+pod 'CHTCollectionViewWaterfallLayout'
 
 end

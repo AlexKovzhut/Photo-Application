@@ -12,21 +12,28 @@ class MainTabBarController: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let photoCollectionVC = PhotoCollectionViewController(collectionViewLayout: UICollectionViewFlowLayout())
-        let photoTableVC = PhotoTableViewController()
+        let firstVC = TitlePhotosViewController()
+        let secondVC = SearchPhotosViewController(collectionViewLayout: UICollectionViewFlowLayout())
+        let thirdVC = AuthViewController()
         
         viewControllers = [
             createNavigationController(
-                rootViewController: photoCollectionVC,
-                title: "Collection",
-                image: UIImage(systemName: "photo.on.rectangle")!,
-                selectedImage: UIImage(systemName: "photo.on.rectangle.fill")!
+                rootViewController: firstVC,
+                title: "Title",
+                image: UIImage(systemName: "photo.circle")!,
+                selectedImage: UIImage(systemName: "photo.circle.fill")!
             ),
             createNavigationController(
-                rootViewController: photoTableVC,
-                title: "Table",
-                image: UIImage(systemName: "text.below.photo")!,
-                selectedImage: UIImage(systemName: "text.below.photo.fill")!
+                rootViewController: secondVC,
+                title: "Search",
+                image: UIImage(systemName: "magnifyingglass.circle")!,
+                selectedImage: UIImage(systemName: "magnifyingglass.circle.fill")!
+            ),
+            createNavigationController(
+                rootViewController: thirdVC,
+                title: "User",
+                image: UIImage(systemName: "person.crop.circle")!,
+                selectedImage: UIImage(systemName: "person.crop.circle.fill")!
             )
         ]
     }

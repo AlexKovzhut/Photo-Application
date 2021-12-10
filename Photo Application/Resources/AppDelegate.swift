@@ -21,8 +21,3 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             return true
     }
 }
-
-
-//F8qFf42dxGvig_oG30JrkfG9XqFct5qeAm6Nvv_D6KY
-
-//J0s-ScBgmK8nGW77vjGxL1ETMGJyVWC3FmQcXdd3X1w
