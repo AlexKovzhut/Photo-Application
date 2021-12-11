@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import CHTCollectionViewWaterfallLayout
 
 class SearchPhotosViewController: UICollectionViewController {
     var networkDataFetcher = NetworkDataFetcher()

@@ -12,7 +12,7 @@ class MainTabBarController: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let firstVC = TitlePhotosViewController()
+        let firstVC = TitlePhotosViewController(collectionViewLayout: UICollectionViewFlowLayout())
         let secondVC = SearchPhotosViewController(collectionViewLayout: UICollectionViewFlowLayout())
         let thirdVC = AuthViewController()
         
