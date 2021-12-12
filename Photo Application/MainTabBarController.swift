@@ -12,9 +12,9 @@ class MainTabBarController: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let firstVC = TitlePhotosViewController(collectionViewLayout: UICollectionViewFlowLayout())
-        let secondVC = SearchPhotosViewController(collectionViewLayout: UICollectionViewFlowLayout())
-        let thirdVC = AuthViewController()
+        let firstVC = ViewController1()
+        let secondVC = ViewController2()
+        let thirdVC = ViewController3()
         
         viewControllers = [
             createNavigationController(
