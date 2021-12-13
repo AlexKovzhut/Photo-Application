@@ -10,13 +10,15 @@ import CHTCollectionViewWaterfallLayout
 
 class ViewController2: UIViewController {
     
+    private let backgroundView = UIView()
+    
     private let collectionView: UICollectionView = {
         let layout = CHTCollectionViewWaterfallLayout()
         layout.itemRenderDirection = .leftToRight
         layout.columnCount = 2
         
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        collectionView.register(CollectionCell1.self, forCellWithReuseIdentifier: CollectionCell1.identifier)
+        collectionView.register(CollectionCell2.self, forCellWithReuseIdentifier: CollectionCell2.identifier)
         
         return collectionView
     }()
@@ -27,13 +29,28 @@ class ViewController2: UIViewController {
         setup()
         setupNavigationBar()
         setStyle()
-        setLayout()
     }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         
         setLayout()
+    }
+}
+
+//MARK: - Configure UI
+
+extension ViewController2 {
+    private func setup() {
+        collectionView.delegate = self
+        collectionView.dataSource = self
+    }
+    
+    private func setStyle() {
+        backgroundView.translatesAutoresizingMaskIntoConstraints = false
+        
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
+        collectionView.backgroundColor = .black
     }
     
     private func setupNavigationBar() {
@@ -48,23 +65,22 @@ class ViewController2: UIViewController {
         navigationController?.hidesBarsOnSwipe = false
         
     }
-}
-
-//MARK: - Configure UI
-
-extension ViewController2 {
-    private func setup() {
-        collectionView.delegate = self
-        collectionView.dataSource = self
-    }
-    
-    private func setStyle() {
-        
-    }
     
     private func setLayout() {
-        view.addSubview(collectionView)
-        collectionView.frame = view.bounds
+        view.addSubview(backgroundView)
+        backgroundView.addSubview(collectionView)
+        
+        NSLayoutConstraint.activate([
+            backgroundView.topAnchor.constraint(equalTo: view.topAnchor),
+            backgroundView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            backgroundView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            backgroundView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            
+            collectionView.topAnchor.constraint(equalTo: backgroundView.topAnchor),
+            collectionView.bottomAnchor.constraint(equalTo: backgroundView.bottomAnchor),
+            collectionView.leadingAnchor.constraint(equalTo: backgroundView.leadingAnchor),
+            collectionView.trailingAnchor.constraint(equalTo: backgroundView.trailingAnchor),
+        ])
     }
 }
 
@@ -96,7 +112,7 @@ extension ViewController2: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CollectionCell1.identifier, for: indexPath) as? CollectionCell1 else { fatalError() }
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CollectionCell2.identifier, for: indexPath) as? CollectionCell2 else { fatalError() }
         
         return cell
     }

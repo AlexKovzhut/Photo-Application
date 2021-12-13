@@ -12,6 +12,10 @@ class MainTabBarController: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.tabBar.tintColor = .white
+        self.tabBar.isTranslucent = false
+        UITabBar.appearance().barTintColor = UIColor.black
+        
         let firstVC = ViewController1()
         let secondVC = ViewController2()
         let thirdVC = ViewController3()

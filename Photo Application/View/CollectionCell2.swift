@@ -13,7 +13,8 @@ class CollectionCell2: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        backgroundColor = .darkGray
+        backgroundColor = .white
+        contentView.clipsToBounds = true
     }
     
     required init?(coder: NSCoder) {
