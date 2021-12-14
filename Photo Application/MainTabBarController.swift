@@ -23,19 +23,19 @@ class MainTabBarController: UITabBarController {
         viewControllers = [
             createNavigationController(
                 rootViewController: firstVC,
-                title: "Title",
+                title: "RANDOM",
                 image: UIImage(systemName: "photo.circle")!,
                 selectedImage: UIImage(systemName: "photo.circle.fill")!
             ),
             createNavigationController(
                 rootViewController: secondVC,
-                title: "Search",
+                title: "SEARCH",
                 image: UIImage(systemName: "magnifyingglass.circle")!,
                 selectedImage: UIImage(systemName: "magnifyingglass.circle.fill")!
             ),
             createNavigationController(
                 rootViewController: thirdVC,
-                title: "User",
+                title: "LOGIN",
                 image: UIImage(systemName: "person.crop.circle")!,
                 selectedImage: UIImage(systemName: "person.crop.circle.fill")!
             )

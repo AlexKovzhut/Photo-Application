@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		022DABA92768813400DA45B2 /* PhotoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 022DABA82768813400DA45B2 /* PhotoViewController.swift */; };
 		023F82932763D1AD008F14D0 /* ViewController3.swift in Sources */ = {isa = PBXBuildFile; fileRef = 023F82922763D1AD008F14D0 /* ViewController3.swift */; };
 		023F82952763D7AE008F14D0 /* CollectionCell1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 023F82942763D7AE008F14D0 /* CollectionCell1.swift */; };
 		025AC3C1275E9DDE00174BA2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 025AC3C0275E9DDE00174BA2 /* AppDelegate.swift */; };
@@ -23,6 +24,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		022DABA82768813400DA45B2 /* PhotoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoViewController.swift; sourceTree = "<group>"; };
 		023F82922763D1AD008F14D0 /* ViewController3.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController3.swift; sourceTree = "<group>"; };
 		023F82942763D7AE008F14D0 /* CollectionCell1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionCell1.swift; sourceTree = "<group>"; };
 		025AC3BD275E9DDE00174BA2 /* Photo Application.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Photo Application.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -79,6 +81,7 @@
 				02B27FF027669D24006AFD6E /* View */,
 				02B27FEF27669D08006AFD6E /* Network */,
 				025AC3D5275E9FE000174BA2 /* MainTabBarController.swift */,
+				022DABA82768813400DA45B2 /* PhotoViewController.swift */,
 				025AC3D9275EA2C700174BA2 /* ViewController1.swift */,
 				025AC3D7275EA09400174BA2 /* ViewController2.swift */,
 				023F82922763D1AD008F14D0 /* ViewController3.swift */,
@@ -265,6 +268,7 @@
 				025AC3DA275EA2C700174BA2 /* ViewController1.swift in Sources */,
 				02B27FF8276777CD006AFD6E /* PhotoModel.swift in Sources */,
 				025AC3D6275E9FE000174BA2 /* MainTabBarController.swift in Sources */,
+				022DABA92768813400DA45B2 /* PhotoViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

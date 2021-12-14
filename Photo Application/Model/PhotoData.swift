@@ -13,7 +13,7 @@ struct PhotoData: Decodable {
     let downloads: Int
     let likes: Int
     let views: Int
-    let description: String
+    let description: String?
     let urls: URLS
     let exif: Exif
     let location: Location
@@ -21,11 +21,11 @@ struct PhotoData: Decodable {
 }
 
 struct Exif: Decodable {
-    let model: String
+    let model: String?
 }
 
 struct Location: Decodable {
-    let name: String
+    let name: String?
 }
 
 struct User: Decodable {

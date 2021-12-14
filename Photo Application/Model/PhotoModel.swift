@@ -7,8 +7,6 @@
 
 struct PhotoModel {
     let photoID: String
-    let photowWidth: Int
-    let photoHeight: Int
     let dateOfCreation: String
     let numbersOfDownloads: Int
     let numbersOfLikes: Int
@@ -18,13 +16,5 @@ struct PhotoModel {
     let photographedOn: String
     let photographedPlace: String
     let author: String
-    
-    var numbersOfDownloadsString: String {
-        return String(numbersOfDownloads)
-    }
-    
-    var numbersOfLikesString: String {
-        return String(numbersOfLikes)
-    }
 }
 

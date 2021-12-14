@@ -7,7 +7,6 @@
 
 import UIKit
 import CHTCollectionViewWaterfallLayout
-import SDWebImage
 
 class ViewController1: UIViewController {
     var networkService = NetworkService()
@@ -42,6 +41,11 @@ class ViewController1: UIViewController {
     @objc private func barButtonPressed() {
             
     }
+    
+    @objc private func didPressedPhoto() {
+        let photoVC = PhotoViewController()
+        navigationController?.pushViewController(photoVC, animated: true)
+    }
 }
 
 //MARK: - Configure UI
@@ -50,8 +54,6 @@ extension ViewController1 {
     private func setup() {
         collectionView.delegate = self
         collectionView.dataSource = self
-        
-        networkService.delegate = self
     }
     
     private func setupNavigationBar() {
@@ -100,7 +102,7 @@ extension ViewController1 {
 
 extension ViewController1: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        return
+        print("Did Select")
     }
 }
 
@@ -112,14 +114,13 @@ extension ViewController1: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return photos.count
+        return 10
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CollectionCell1.identifier, for: indexPath) as? CollectionCell1 else { fatalError() }
-
-        cell.imageView.image = UIImage(systemName: photos[indexPath.row].url)
-        cell.label.text = photos[indexPath.row].author
+        
+        cell.button.addTarget(self, action: #selector(didPressedPhoto), for: .touchUpInside)
 
         return cell
     }
@@ -129,37 +130,6 @@ extension ViewController1: UICollectionViewDataSource {
 
 extension ViewController1: CHTCollectionViewDelegateWaterfallLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: view.frame.width/2, height: view.frame.height/2)
-    }
-}
-
-//
-
-extension ViewController1: PhotoServiceDelegate {
-    func didFetchModel(_ service: NetworkService, _ model: PhotoModel) {
-        
-    }
-    
-    func didFailWithError(_ service: NetworkService, _ error: ServiceError) {
-        let message: String
-
-        switch error {
-        case .network(statusCode: let statusCode):
-            message = "Networking error. Status code: \(statusCode)"
-        case .parsing:
-            message = "JSON data could not be parsed"
-        case .general(reason: let reason):
-            message = reason
-        }
-        showErrorAlert(with: message)
-    }
-    
-
-    func showErrorAlert(with message: String) {
-        let alert = UIAlertController(title: "Error fetching data", message: message, preferredStyle: .alert)
-
-        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-
-        self.present(alert, animated: true, completion: nil)
+        return CGSize(width: view.frame.width/2, height: view.frame.height/2.5)
     }
 }

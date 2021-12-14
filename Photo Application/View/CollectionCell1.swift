@@ -10,6 +10,7 @@ import UIKit
 class CollectionCell1: UICollectionViewCell {
     static let identifier = "CellID1"
     
+    let button = UIButton()
     let imageView = UIImageView()
     let label = UILabel()
     
@@ -31,6 +32,8 @@ class CollectionCell1: UICollectionViewCell {
     }
     
     private func setStyle() {
+        button.translatesAutoresizingMaskIntoConstraints = false
+        
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.backgroundColor = .white
         imageView.contentMode = .scaleAspectFill
@@ -42,10 +45,16 @@ class CollectionCell1: UICollectionViewCell {
     }
     
     private func setLayout() {
-        contentView.addSubview(imageView)
-        contentView.addSubview(label)
+        contentView.addSubview(button)
+        button.addSubview(imageView)
+        button.addSubview(label)
         
         NSLayoutConstraint.activate([
+            button.topAnchor.constraint(equalTo: contentView.topAnchor),
+            button.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+            button.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            button.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            
             imageView.topAnchor.constraint(equalTo: contentView.topAnchor),
             imageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
             imageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
