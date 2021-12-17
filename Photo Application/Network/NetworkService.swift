@@ -9,43 +9,102 @@
 
 import Foundation
 
+enum ServiceError: Error {
+    case networkError(URLResponse?)
+    case parsingError
+}
+
+fileprivate struct APIResponce: Codable {
+    let results: [PhotoData]
+}
+
 class NetworkService {
     static let shared = NetworkService()
     
-    let urlString = "https://api.unsplash.com/photos/random?client_id=F8qFf42dxGvig_oG30JrkfG9XqFct5qeAm6Nvv_D6KY"
+    private let accessKey = "F8qFf42dxGvig_oG30JrkfG9XqFct5qeAm6Nvv_D6KY" //ACCESS KEY FOR API REQUEST
     
-    func fetchPhotos() {
+    private func components() -> URLComponents {
+        var components = URLComponents()
+        components.scheme = "https"
+        components.host = "api.unsplash.com"
         
+        return components
     }
     
-    private func parseJSON(_ photoData: Data) -> PhotoModel? {
-        let decodedData = try! JSONDecoder().decode(PhotoData.self, from: photoData)
+    private func request(url: URL) -> URLRequest {
+        var request = URLRequest(url: url)
+        request.httpMethod = "GET"
+        request.addValue("Client-ID \(accessKey)", forHTTPHeaderField: "Authorization")
+        
+        return request
+    }
+    
+    func fetchPhotos(query: String, complition: @escaping ([PhotoData]?, Error?) -> (Void)) {
+        var components = components()
+        components.path = "/search/photos"
+        components.queryItems = [
+            URLQueryItem(name: "query", value: query)
+        ]
+        
+        let request = request(url: components.url!)
+        
+        let task = URLSession.shared.dataTask(with: request) { data, responce, error in
+            if let error = error {
+                complition(nil, error)
+                return
+            }
+            
+            guard let httpResponce = responce as? HTTPURLResponse,
+                  (200...299).contains(httpResponce.statusCode) else {
+                      complition(nil, ServiceError.networkError(responce))
+                      return
+                  }
+            
+            guard let data = data else {
+                complition(nil, ServiceError.parsingError)
+                return
+            }
 
-        let photoID = decodedData.id
-        let dateOfCreation = decodedData.created_at
-        let numbersOfDownloads = decodedData.downloads
-        let numbersOfLikes = decodedData.likes
-        let numberOfViews = decodedData.views
-        let descriptionForPhoto = decodedData.description
-        let url = decodedData.urls.full
-        let photographedOn = decodedData.exif.model
-        let photographedPlace = decodedData.location.name
-        let author = decodedData.user.name
-
-            let photo = PhotoModel(
-                photoID: photoID,
-                dateOfCreation: dateOfCreation,
-                numbersOfDownloads: numbersOfDownloads,
-                numbersOfLikes: numbersOfLikes,
-                numberOfViews: numberOfViews,
-                descriptionForPhoto: descriptionForPhoto ?? "One of the best moments",
-                url: url,
-                photographedOn: photographedOn ?? "Marvelous thing",
-                photographedPlace: photographedPlace  ?? "Somewhere in universe",
-                author: author
-            )
-
-            return photo
+            
+            do {
+                let responce = try JSONDecoder().decode(APIResponce.self, from: data)
+                complition(responce.results, nil)
+            } catch let error {
+                complition(nil, error)
+            }
         }
+        task.resume()
+    }
+    
+    func image (photo: PhotoData, complition: @escaping (Data?, Error?) -> (Void)) {
+        let session = URLSession(configuration: .default)
+        
+        
+        let task = session.downloadTask(with: URL(string: photo.urls.regular)!) { localURL, responce, error in
+            if let error = error {
+                complition(nil, error)
+                return
+            }
+            
+            guard let httpResponce = responce as? HTTPURLResponse,
+                  (200...299).contains(httpResponce.statusCode) else {
+                      complition(nil, ServiceError.networkError(responce))
+                      return
+                  }
+            
+            guard let localURL = localURL else {
+                complition(nil, ServiceError.parsingError)
+                return
+            }
+            
+            do {
+                let data = try Data(contentsOf: localURL)
+                complition(data, nil)
+            } catch let error {
+                complition(nil, error)
+            }
+        }
+        task.resume()
+    }
 }
 

@@ -6,13 +6,14 @@
 //
 
 import UIKit
+import SDWebImage
 
 class CollectionCell1: UICollectionViewCell {
     static let identifier = "CellID1"
     
     let button = UIButton()
-    let imageView = UIImageView()
-    let label = UILabel()
+    var imageView = UIImageView()
+    var label = UILabel()
     
     override init(frame: CGRect) {
         super.init(frame: frame)

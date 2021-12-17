@@ -5,34 +5,36 @@
 //  Created by Alexander Kovzhut on 13.12.2021.
 //
 
-struct PhotoData: Decodable {
+import Foundation
+
+struct PhotoData: Codable {
     let id: String
     let width: Int
     let height: Int
     let created_at: String
-    let downloads: Int
-    let likes: Int
-    let views: Int
+    let downloads: Int?
+    let likes: Int?
+    let views: Int?
     let description: String?
     let urls: URLS
-    let exif: Exif
-    let location: Location
+    let exif: Exif?
+    let location: Location?
     let user: User
 }
 
-struct Exif: Decodable {
-    let model: String?
+struct Exif: Codable {
+    let model: String
 }
 
-struct Location: Decodable {
-    let name: String?
-}
-
-struct User: Decodable {
+struct Location: Codable {
     let name: String
 }
 
-struct URLS: Decodable {
+struct User: Codable {
+    let name: String
+}
+
+struct URLS: Codable {
     let raw: String
     let full: String
     let regular: String

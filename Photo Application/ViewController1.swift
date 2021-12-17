@@ -9,14 +9,14 @@ import UIKit
 import CHTCollectionViewWaterfallLayout
 
 class ViewController1: UIViewController {
-    var networkService = NetworkService()
-    var photos = [PhotoModel]()
-    
+    var networker = NetworkService.shared
+    var photos = [PhotoData]()
+     
     private let backgroundView = UIView()
     private let collectionView: UICollectionView = {
         let layout = CHTCollectionViewWaterfallLayout()
-        layout.itemRenderDirection = .leftToRight
-        layout.columnCount = 1
+        layout.itemRenderDirection = .rightToLeft
+        layout.columnCount = 2
         
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.register(CollectionCell1.self, forCellWithReuseIdentifier: CollectionCell1.identifier)
@@ -30,6 +30,18 @@ class ViewController1: UIViewController {
         setup()
         setupNavigationBar()
         setStyle()
+        
+        networker.fetchPhotos(query: "Popular") { [weak self] photos, error in
+            if let error = error {
+                print("error = ", error)
+                return
+            }
+            
+            self?.photos = photos!
+            DispatchQueue.main.async {
+                self?.collectionView.reloadData()
+            }
+        }
     }
     
     override func viewDidLayoutSubviews() {
@@ -114,13 +126,25 @@ extension ViewController1: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 10
+        return photos.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CollectionCell1.identifier, for: indexPath) as? CollectionCell1 else { fatalError() }
         
-        cell.button.addTarget(self, action: #selector(didPressedPhoto), for: .touchUpInside)
+        let photo = photos[indexPath.row]
+        
+        cell.label.text = photo.user.name
+        //cell.button.addTarget(self, action: #selector(didPressedPhoto), for: .touchUpInside)
+        
+        networker.image(photo: photo) { data, error in
+            if let data = data {
+                let image = UIImage(data: data)
+                DispatchQueue.main.async {
+                    cell.imageView.image = image
+                }
+            }
+        }
 
         return cell
     }
