@@ -23,7 +23,7 @@ class MainTabBarController: UITabBarController {
         viewControllers = [
             createNavigationController(
                 rootViewController: firstVC,
-                title: "RANDOM",
+                title: "FILTERED",
                 image: UIImage(systemName: "photo.circle")!,
                 selectedImage: UIImage(systemName: "photo.circle.fill")!
             ),

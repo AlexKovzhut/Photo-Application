@@ -4,8 +4,6 @@
 //
 //  Created by Alexander Kovzhut on 13.12.2021.
 //
-//https://api.unsplash.com/photos/random?client_id=F8qFf42dxGvig_oG30JrkfG9XqFct5qeAm6Nvv_D6KY
-//https://api.unsplash.com/search/photos?page=1&query=office&client_id=F8qFf42dxGvig_oG30JrkfG9XqFct5qeAm6Nvv_D6KY
 
 import Foundation
 
@@ -76,9 +74,9 @@ class NetworkService {
         task.resume()
     }
     
-    func image (photo: PhotoData, complition: @escaping (Data?, Error?) -> (Void)) {
+    func image(photo: PhotoData, complition: @escaping (Data?, Error?) -> (Void)) {
         let session = URLSession(configuration: .default)
-        
+    
         
         let task = session.downloadTask(with: URL(string: photo.urls.regular)!) { localURL, responce, error in
             if let error = error {

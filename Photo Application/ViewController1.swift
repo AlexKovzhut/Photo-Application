@@ -15,8 +15,7 @@ class ViewController1: UIViewController {
     private let backgroundView = UIView()
     private let collectionView: UICollectionView = {
         let layout = CHTCollectionViewWaterfallLayout()
-        layout.itemRenderDirection = .rightToLeft
-        layout.columnCount = 2
+        layout.minimumInteritemSpacing = 1.0
         
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.register(CollectionCell1.self, forCellWithReuseIdentifier: CollectionCell1.identifier)
@@ -50,8 +49,11 @@ class ViewController1: UIViewController {
         setLayout()
     }
     
-    @objc private func barButtonPressed() {
-            
+    @objc private func aboutPhotoGallaryButtonPressed() {
+        let aboutVC = AboutViewController()
+        aboutVC.modalPresentationStyle = .pageSheet
+        aboutVC.modalTransitionStyle = .coverVertical
+        present(aboutVC, animated: true, completion: nil)
     }
     
     @objc private func didPressedPhoto() {
@@ -70,7 +72,7 @@ extension ViewController1 {
     
     private func setupNavigationBar() {
         let titleLabel = UILabel()
-        let barButtonItem = UIBarButtonItem(barButtonSystemItem: .bookmarks, target: self, action: #selector(barButtonPressed))
+        let barButtonItem = UIBarButtonItem(barButtonSystemItem: .bookmarks, target: self, action: #selector(aboutPhotoGallaryButtonPressed))
         
         titleLabel.text = "PHOTO GALLERY"
         titleLabel.font = UIFont.systemFont(ofSize: 20, weight: .semibold)
@@ -135,12 +137,12 @@ extension ViewController1: UICollectionViewDataSource {
         let photo = photos[indexPath.row]
         
         cell.label.text = photo.user.name
-        //cell.button.addTarget(self, action: #selector(didPressedPhoto), for: .touchUpInside)
+        cell.button.addTarget(self, action: #selector(didPressedPhoto), for: .touchUpInside)
         
         networker.image(photo: photo) { data, error in
             if let data = data {
                 let image = UIImage(data: data)
-                DispatchQueue.main.async {
+                DispatchQueue.main.asyncAfter(deadline: .now() + Double.random(in: 0...2) ) {
                     cell.imageView.image = image
                 }
             }
@@ -154,6 +156,12 @@ extension ViewController1: UICollectionViewDataSource {
 
 extension ViewController1: CHTCollectionViewDelegateWaterfallLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: view.frame.width/2, height: view.frame.height/2.5)
-    }
+            let itemWidth = photos[indexPath.row].width
+            let itemHeight = photos[indexPath.row].height
+            return CGSize(width: itemWidth, height: itemHeight)
+        }
+        
+        func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, columnCountFor section: Int) -> Int {
+            return 1
+        }
 }

@@ -42,7 +42,7 @@ class CollectionCell1: UICollectionViewCell {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "Author"
         label.font = UIFont.systemFont(ofSize: 20, weight: .semibold)
-        label.tintColor = .white
+        label.textColor = .white
     }
     
     private func setLayout() {
