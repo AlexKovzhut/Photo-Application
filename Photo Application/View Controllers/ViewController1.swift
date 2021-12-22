@@ -30,7 +30,7 @@ class ViewController1: UIViewController {
         setupNavigationBar()
         setStyle()
         
-        networker.fetchPhotos(query: "Popular") { [weak self] photos, error in
+        networker.fetchPhotos(query: "Random") { [weak self] photos, error in
             if let error = error {
                 print("error = ", error)
                 return
@@ -136,14 +136,20 @@ extension ViewController1: UICollectionViewDataSource {
         
         let photo = photos[indexPath.row]
         
+        cell.imageView.image = nil
         cell.label.text = photo.user.name
         cell.button.addTarget(self, action: #selector(didPressedPhoto), for: .touchUpInside)
+        
+        let representedIdentifier = photo.id
+        cell.representedIdentifier = representedIdentifier
         
         networker.image(photo: photo) { data, error in
             if let data = data {
                 let image = UIImage(data: data)
-                DispatchQueue.main.asyncAfter(deadline: .now() + Double.random(in: 0...2) ) {
-                    cell.imageView.image = image
+                DispatchQueue.main.asyncAfter(deadline: .now() + Double.random(in: 0...2)) {
+                    if (cell.representedIdentifier == representedIdentifier) {
+                        cell.imageView.image = image
+                    }
                 }
             }
         }

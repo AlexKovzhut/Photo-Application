@@ -5,7 +5,8 @@
 //  Created by Alexander Kovzhut on 13.12.2021.
 //
 
-import Foundation
+import UIKit
+import SDWebImage
 
 enum ServiceError: Error {
     case networkError(URLResponse?)
@@ -19,6 +20,7 @@ fileprivate struct APIResponce: Codable {
 class NetworkService {
     static let shared = NetworkService()
     
+    private var imageCache = NSCache<NSString, UIImage>()
     private let accessKey = "F8qFf42dxGvig_oG30JrkfG9XqFct5qeAm6Nvv_D6KY" //ACCESS KEY FOR API REQUEST
     
     private func components() -> URLComponents {
@@ -75,9 +77,8 @@ class NetworkService {
     }
     
     func image(photo: PhotoData, complition: @escaping (Data?, Error?) -> (Void)) {
-        let session = URLSession(configuration: .default)
-    
         
+        let session = URLSession(configuration: .default)
         let task = session.downloadTask(with: URL(string: photo.urls.regular)!) { localURL, responce, error in
             if let error = error {
                 complition(nil, error)
@@ -103,6 +104,27 @@ class NetworkService {
             }
         }
         task.resume()
+    }
+    
+    func downloadImage(url: URL, completion: @escaping(UIImage?) -> Void) {
+        if let cachedImage = imageCache.object(forKey: url.absoluteString as NSString) {
+            completion(cachedImage)
+        } else {
+            let request = URLRequest(
+                url: url,
+                cachePolicy: URLRequest.CachePolicy.returnCacheDataElseLoad,
+                timeoutInterval: 10
+            )
+            let dataTask = URLSession.shared.dataTask(with: request) { data, _, _ in
+                guard let image = UIImage(data: data!) else { return }
+                self.imageCache.setObject(image, forKey: url.absoluteString as NSString)
+                
+                DispatchQueue.main.async {
+                    completion(image)
+                }
+            }
+            dataTask.resume()
+        }
     }
 }
 

@@ -56,6 +56,19 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0227107127725C79007A171D /* View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				025AC3D5275E9FE000174BA2 /* MainTabBarController.swift */,
+				022DABA82768813400DA45B2 /* PhotoViewController.swift */,
+				02B4BDA5276F83F400274DA0 /* AboutViewController.swift */,
+				025AC3D9275EA2C700174BA2 /* ViewController1.swift */,
+				025AC3D7275EA09400174BA2 /* ViewController2.swift */,
+				023F82922763D1AD008F14D0 /* ViewController3.swift */,
+			);
+			path = "View Controllers";
+			sourceTree = "<group>";
+		};
 		025AC3B4275E9DDE00174BA2 = {
 			isa = PBXGroup;
 			children = (
@@ -77,15 +90,10 @@
 		025AC3BF275E9DDE00174BA2 /* Photo Application */ = {
 			isa = PBXGroup;
 			children = (
-				025AC3E1275EC9B400174BA2 /* Model */,
+				025AC3E1275EC9B400174BA2 /* Models */,
 				02B27FF027669D24006AFD6E /* View */,
 				02B27FEF27669D08006AFD6E /* Network */,
-				025AC3D5275E9FE000174BA2 /* MainTabBarController.swift */,
-				022DABA82768813400DA45B2 /* PhotoViewController.swift */,
-				025AC3D9275EA2C700174BA2 /* ViewController1.swift */,
-				025AC3D7275EA09400174BA2 /* ViewController2.swift */,
-				023F82922763D1AD008F14D0 /* ViewController3.swift */,
-				02B4BDA5276F83F400274DA0 /* AboutViewController.swift */,
+				0227107127725C79007A171D /* View Controllers */,
 				025AC3D4275E9DFF00174BA2 /* Resources */,
 			);
 			path = "Photo Application";
@@ -102,12 +110,12 @@
 			path = Resources;
 			sourceTree = "<group>";
 		};
-		025AC3E1275EC9B400174BA2 /* Model */ = {
+		025AC3E1275EC9B400174BA2 /* Models */ = {
 			isa = PBXGroup;
 			children = (
 				02B27FF9276777DA006AFD6E /* PhotoData.swift */,
 			);
-			path = Model;
+			path = Models;
 			sourceTree = "<group>";
 		};
 		02B27FEF27669D08006AFD6E /* Network */ = {

@@ -11,6 +11,8 @@ import SDWebImage
 class CollectionCell1: UICollectionViewCell {
     static let identifier = "CellID1"
     
+    var representedIdentifier = ""
+    
     let button = UIButton()
     var imageView = UIImageView()
     var label = UILabel()
